@@ -10,14 +10,20 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.Tools.MSBuild.MSBuildTasks;
 using static Nuke.Common.Tools.NuGet.NuGetTasks;
+using static Nuke.Common.IO.PathConstruction;
 
 namespace Rocket.Surgery.Nuke.Xamarin
 {
     /// <summary>
     /// Base build plan for Xamarin.Mac based applications
     /// </summary>
-    public abstract class MacBuild : RocketBoosterBuild
+    public abstract class MacBuild : XamarinBuild
     {
+        /// <summary>
+        /// The directory where archived binary will be placed.
+        /// </summary>
+        public AbsolutePath ArchiveDirectory => ArtifactsDirectory / "archive" / "mac";
+
         /// <inheritdoc />
         public Target Restore => _ => _
             .DependsOn(Clean)
